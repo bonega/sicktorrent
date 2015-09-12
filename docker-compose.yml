@@ -1,0 +1,21 @@
+rtorrent:
+  build: docktorrent
+  ports:
+    - 80:80
+    - 9527:9527
+    - 45566:45566
+    - 5000:5000
+  env_file:
+    - .env
+  volumes:
+    - /srv/rtorrent:/rtorrent
+  tty: true
+
+sickrage:
+  build: sickrage-docker
+  ports:
+    - 8081:8081
+  links:
+    - rtorrent
+  volumes:
+    - /srv/rtorrent:/torrent
